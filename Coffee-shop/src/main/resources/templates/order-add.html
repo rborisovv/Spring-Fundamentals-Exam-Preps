@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Coffee Shop Application</title>
+    <link href="/css/reset-css.css" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body class="bg-secondary">
+<header>
+    <div th:replace="fragments/navbar :: navbar">Navbar</div>
+</header>
+<main class="bg-secondary" role="main">
+
+    <div class="jumbotron">
+        <div class="container text-light ">
+            <h1 class="display-3 ">
+                <strong class="bg-blur rounded border-left border-white pl-3 border-bottom">Add Order</strong></h1>
+        </div>
+        <div class="container bg-blur rounded p-5 mt-5 w-75">
+            <form class=" text-center text-light" th:action="@{/orders/add}" th:method="POST"
+                  th:object="${orderModel}">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="name">Name</label>
+                    <div class="col-sm-10">
+                        <input aria-describedby="nameHelpInline" class="form-control" id="name" placeholder="Name"
+                               th:errorclass="is-invalid"
+                               th:field="*{name}" type="text">
+                        <small class="invalid-feedback bg-danger text-light rounded" id="nameHelpInline">
+                            Name must be between 3 and 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="price">Price</label>
+                    <div class="col-sm-10">
+                        <input aria-describedby="priceHelpInline" class="form-control" id="price" step="1"
+                               th:errorclass="is-invalid" th:field="*{price}"
+                               type="number">
+                        <small class="invalid-feedback bg-danger text-light rounded" id="priceHelpInline">
+                            Price must be positive.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="orderTime">Order time</label>
+                    <div class="col-sm-10">
+                        <input aria-describedby="orderTimeHelpInline" class="form-control" id="orderTime"
+                               th:errorclass="is-invalid" th:field="*{orderTime}"
+                               type="datetime-local">
+                        <small class="invalid-feedback bg-danger text-light rounded" id="orderTimeHelpInline">
+                            Order time cannot be in the future.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="category">Category</label>
+                    <div class="col-sm-10">
+                        <select aria-describedby="categoryHelpInline" class="custom-select" id="category"
+                                name="category" th:errorclass="is-invalid"
+                                th:field="*{category}">
+                            <option selected value="">Category</option>
+                            <option selected th:each="category : ${categories}" th:text="${category.name}"
+                                    th:value="${category.name}">Category
+                            </option>
+
+                        </select>
+                        <small class="invalid-feedback bg-danger text-light rounded" id="categoryHelpInline">
+                            You must select the category.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="description">Description</label>
+                    <div class="col-sm-10">
+                    <textarea aria-describedby="descriptionHelpInline" class="form-control" id="description"
+                              placeholder="Description"
+                              th:errorclass="is-invalid" th:field="*{description}">
+                    </textarea>
+                        <small class="invalid-feedback bg-danger text-light rounded" id="descriptionHelpInline">
+                            The description must be more than 5 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <button class="btn btn-info w-50" type="submit">Add order</button>
+            </form>
+            <hr class="bg-light">
+        </div>
+    </div>
+</main>
+<footer class="container">
+    <p>&copy;SoftUni Spring Team 2021. All rights reserved.</p>
+</footer>
+</body>
+</html>

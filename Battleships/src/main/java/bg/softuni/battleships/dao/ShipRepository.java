@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ShipRepository extends JpaRepository<Ship, Long> {
-
+    Optional<Ship> findShipByName(String name);
 }

@@ -59,6 +59,11 @@ public class UserService {
         userSession.setEmail(null);
     }
 
+    public User findById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.orElse(null);
+    }
+
     private void initUserSession(User user) {
         userSession.setId(user.getId());
         userSession.setUsername(user.getUsername());

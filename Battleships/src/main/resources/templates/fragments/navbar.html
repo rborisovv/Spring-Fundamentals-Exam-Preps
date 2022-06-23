@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
+                    <a th:href="${@userSession.id == null ? '/index' : 'home'}"  class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a th:if="${@userSession.id == null}" class="nav-link" th:href="@{/users/login}">Login</a>
@@ -18,7 +18,7 @@
                     <a th:if="${@userSession.id == null}" class="nav-link" th:href="@{/users/register}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a th:unless="${@userSession.id == null}" class="nav-link" href="/">Add Ship</a>
+                    <a th:unless="${@userSession.id == null}" class="nav-link" th:href="@{/ships/add}">Add Ship</a>
                 </li>
                 <li class="nav-item">
                     <a th:unless="${@userSession.id == null}" class="nav-link" th:href="@{/users/logout}">Logout</a>

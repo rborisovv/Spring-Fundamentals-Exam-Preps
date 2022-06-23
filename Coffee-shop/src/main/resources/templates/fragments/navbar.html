@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info rounded" th:fragment="navbar">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="${@userSession.id == null ? '/index' : '/home'}">Home</a>
+            </li>
+            <li class="nav-item" th:if="${@userSession.id == null}">
+                <a class="nav-link" th:href="@{/users/login}">Login</a>
+            </li>
+            <li class="nav-item" th:if="${@userSession.id == null}">
+                <a class="nav-link" th:href="@{/users/register}">Register</a>
+            </li>
+            <li class="nav-item" th:unless="${@userSession.id == null}">
+                <a class="nav-link" th:href="@{/orders/add}">Add Order</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/users/logout}" th:unless="${@userSession.id == null}">Logout</a>
+            </li>
+        </ul>
+        <img alt="Coffee image" src="/images/coffee.png" width="50px">
+    </div>
+</nav>
+</body>
+</html>
