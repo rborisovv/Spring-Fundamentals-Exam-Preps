@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GIRA</title>
+    <link href="/img/projectLogo.png" rel="icon" type="image/icon type">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/reset-css.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="page-container">
+    <header>
+        <div th:replace="fragments/user-nav :: user-nav">Navbar</div>
+    </header>
+    <main class="content-wrap">
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Tasks</span></h1>
+        <hr class="hr-3 w-75 bg-white"/>
+        <form class="mx-auto w-75 " th:action="@{/tasks/update/{id}(id=${task.id})}" th:each="task : ${tasks}"
+              th:method="POST">
+
+            <div class="card-group task-card">
+                <div class="card">
+
+                    <div class="card-title">
+                        <h5 class="card-title">Name</h5>
+                    </div>
+                    <div class="card-footer">
+                        <small th:text="${task.name}">Repair Laptop</small>
+                    </div>
+                </div>
+                <div class="card">
+
+                    <div class="card-title">
+                        <h5 class="card-title">Assigned to</h5>
+                    </div>
+                    <div class="card-footer">
+                        <small th:text="${task.user.username}">George</small>
+                    </div>
+                </div>
+                <div class="card">
+
+                    <div class="card-title">
+                        <h5 class="card-title">Classification</h5>
+                    </div>
+                    <div class="card-footer">
+                        <th:block th:switch="${task.classification.classificationName.name()}">
+                            <small class="classifications SUPPORT" th:case="'SUPPORT'">SUPPORT</small>
+                            <small class="classifications BUG" th:case="'BUG'">BUG</small>
+                            <small class="classifications FEATURE" th:case="'FEATURE'">FEATURE</small>
+                            <small class="classifications OTHER" th:case="'OTHER'">OTHER</small>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <h5 class="card-title">Due Date</h5>
+                    </div>
+                    <div class="card-footer">
+                        <small th:text="${task.dueDate}">2020-08-30</small>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        <h5 class="card-title">Progress</h5>
+                    </div>
+                    <div class="card-footer">
+                        <small th:text="${task.progress.name()}">OPEN</small>
+                    </div>
+                </div>
+
+                <a class="button prBtn" th:href="@{/tasks/update/{id}(id=${task.id})}">Progress</a>
+            </div>
+
+        </form>
+    </main>
+
+    <footer class="footer">
+        <div class="container-fluid text-center">
+            <div class="footer-background h6">
+                &copy; Spring team 2020. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>
